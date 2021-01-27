@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Math/Rotator.h"
 #include "FPSCharacter.generated.h"
 
 UCLASS()
@@ -43,4 +45,8 @@ public:
 	// First-person mesh (arms), visible only to the owning player.
 	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
 		USkeletalMeshComponent* FPSMesh;
+
+	// Gun mesh component
+	UPROPERTY(VisibleAnywhere)
+		UStaticMeshComponent* GunMesh;
 };

@@ -37,6 +37,15 @@ AFPSCharacter::AFPSCharacter()
 	FPSMesh->CastShadow = false;
 
 	GetMesh()->SetOwnerNoSee(true);
+
+	// Create a mesh component for the owning player.
+	GunMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
+	check(GunMesh != nullptr);
+
+	//FRotator(130.0f, 0.0f, -90.0f)
+	GunMesh->SetWorldRotation(FRotator(0.0f, 0.0f, 0.0f));
+	//GunMesh->SetRelativeRotation(FRotator(130.0f, 0.0f, 270.0f));
+	GunMesh->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
 }
 
 // Called when the game starts or when spawned
@@ -49,6 +58,13 @@ void AFPSCharacter::BeginPlay()
 	// Display a debug message for five seconds. 
 	// The -1 "Key" value argument prevents the message from being updated or refreshed.
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("We are using FPSCharacter."));
+
+	FAttachmentTransformRules rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget,
+		EAttachmentRule::KeepRelative,
+		EAttachmentRule::KeepWorld,
+		true);
+
+	GunMesh->AttachToComponent(FPSMesh, rules, TEXT("b_RightHandMiddle1Socket"));
 }
 
 // Called every frame
